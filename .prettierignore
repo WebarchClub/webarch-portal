@@ -1,0 +1,6 @@
+package-lock.json
+Prockfile
+README.md
+.gitignore
+/public/*
+/node_modules/*
