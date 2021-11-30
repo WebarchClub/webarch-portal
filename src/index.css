@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+}
+
 html,
 body,
 #root {
@@ -10,3 +16,22 @@ body,
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/* scrollbar start  */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #161625;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #00e8ff;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #bebebe;
+}
+/* scrollbar end  */
