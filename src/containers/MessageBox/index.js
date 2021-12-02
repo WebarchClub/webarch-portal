@@ -16,8 +16,11 @@ const MessageBox = () => {
         clearAlert();
     };
 
-    const setAlert = () => {
+    const setErrorAlert = () => {
         dispatch(setAlertMessage("This is an error", "error"));
+    };
+    const setInfoAlert = () => {
+        dispatch(setAlertMessage("This is an error", "info"));
     };
     const clearAlert = () => {
         dispatch(clearAlertMessage());
@@ -29,10 +32,12 @@ const MessageBox = () => {
     }, [state]);
     return (
         <>
-            <Button variant="primary" onClick={setAlert}>
-                Create sample alert
+            <Button variant="danger" onClick={setErrorAlert}>
+                Create error alert
+            </Button>{" "}
+            <Button variant="info" onClick={setInfoAlert}>
+                Create info alert
             </Button>
-
             <Modal show={show}>
                 <Modal.Header>
                     <Modal.Title
