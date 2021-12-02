@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { clearAlertMessage, setAlertMessage } from "../../store/actions/alerts";
+import { AiFillInfoCircle } from "react-icons/ai";
+import { BiError } from "react-icons/bi";
+import "./MessageBox.css";
 
 const MessageBox = () => {
     const state = useSelector((state) => state);
@@ -14,7 +17,7 @@ const MessageBox = () => {
     };
 
     const setAlert = () => {
-        dispatch(setAlertMessage("This is an error", "info"));
+        dispatch(setAlertMessage("This is an error", "error"));
     };
     const clearAlert = () => {
         dispatch(clearAlertMessage());
@@ -32,7 +35,20 @@ const MessageBox = () => {
 
             <Modal show={show}>
                 <Modal.Header>
-                    <Modal.Title>Alert Heading</Modal.Title>
+                    <Modal.Title
+                        className={
+                            state.alert?.type === "info"
+                                ? "text-info"
+                                : "text-danger"
+                        }
+                    >
+                        {state.alert?.type === "error" ? (
+                            <BiError />
+                        ) : (
+                            <AiFillInfoCircle />
+                        )}
+                        <span className="heading">Alert Heading</span>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>{state.alert?.message}</Modal.Body>
                 <Modal.Footer>
