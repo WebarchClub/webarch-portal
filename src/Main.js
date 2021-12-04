@@ -1,5 +1,4 @@
 import "./Main.css";
-import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
 import MessageBox from "./containers/MessageBox/index";
 
