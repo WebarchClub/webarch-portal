@@ -1,6 +1,6 @@
-import axios from "axios";
 import { SET_CURRENT_USER, LOGOUT } from "../actionTypes";
 import { apiCall, setTokenHeader } from "../../utils/index";
+import { setAlertMessage } from "./alerts";
 
 // Set current user
 export const setCurrentUser = (user) => (dispatch) => {
@@ -14,14 +14,30 @@ export const setAuthToken = (token) => {
 
 // Logout user
 export const logout = () => (dispatch) => {
+    localStorage.removeItem("wptoken");
     dispatch({ type: LOGOUT });
 };
 
 // Auth user
-export const authUser = (method, path, data) => {
+export const authUser = (type, data) => (dispatch) => {
+    // type = signup for Sign up and type = signin for Log in
+    const method = "POST";
+    const path = `https://webarch-api.herokuapp.com/commons/wp/auth/${type}`;
+
     return new Promise((resolve, reject) => {
         return apiCall(method, path, data)
-            .then((res) => resolve(res.data))
-            .catch((error) => reject(error.response.data.error));
+            .then((res) => {
+                localStorage.setItem("wptoken", res.token);
+                setAuthToken(res.token);
+                dispatch(setCurrentUser(res.user));
+                dispatch(
+                    setAlertMessage("User successfully logged in", "info")
+                );
+                resolve();
+            })
+            .catch((error) => {
+                dispatch(setAlertMessage(error.message, "error"));
+                reject();
+            });
     });
 };

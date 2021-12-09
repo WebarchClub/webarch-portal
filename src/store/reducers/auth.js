@@ -8,7 +8,9 @@ export const authReducer = (
         case SET_CURRENT_USER:
             return {
                 ...state,
-                isAuthenticated: true,
+                isAuthenticated: Object.keys(action.payload).length
+                    ? true
+                    : false,
                 user: action.payload
             };
         case LOGOUT:
