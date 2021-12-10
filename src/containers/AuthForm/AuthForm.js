@@ -1,54 +1,69 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import $ from "jquery";
 import "./AuthForm.css";
+import { setAlertMessage, clearAlertMessage } from "../../store/actions/alerts";
+import { authUser } from "../../store/actions/auth";
 
 function AuthForm(props) {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: ""
-    });
+    const dispatch = useDispatch();
 
-    const encode = (data) => {
-        return Object.keys(data)
-            .map(
-                (key) =>
-                    encodeURIComponent(key) +
-                    "=" +
-                    encodeURIComponent(data[key])
-            )
-            .join("&");
-    };
+    if (props.signup === true) {
+        var authDetails = {
+            name: "",
+            email: "",
+            password: ""
+        };
+    } else {
+        var authDetails = {
+            email: "",
+            password: ""
+        };
+    }
+
+    const [formData, setFormData] = useState(authDetails);
 
     const handleSubmit = (e) => {
+        e.preventDefault();
         var emailRegex =
             /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if (
-            formData.email.match(emailRegex) &&
-            formData.password.length > 3 &&
-            formData.name !== "" &&
-            formData.name !== null &&
-            formData.name !== undefined
-        ) {
-            fetch("/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: encode({ "form-name": "signup", ...formData })
-            })
-                .then((res) => {
-                    return res.json();
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+
+        if (props.signup === true) {
+            if (
+                formData.email.match(emailRegex) &&
+                formData.password.length > 3 &&
+                formData.name !== ""
+            ) {
+                dispatch(authUser("signup", formData))
+                    .then((res) => console.log(res))
+                    .catch((error) => console.log(error));
+            } else {
+                dispatch(
+                    setAlertMessage(
+                        "Please enter all fields correctly",
+                        "error"
+                    )
+                );
+            }
         } else {
-            console.log("Enter valid email, password or name");
+            if (
+                formData.email.match(emailRegex) &&
+                formData.password.length > 3
+            ) {
+                dispatch(authUser("signin", formData))
+                    .then((res) => console.log(res))
+                    .catch((error) => console.log(error));
+            } else {
+                dispatch(
+                    setAlertMessage(
+                        "Please enter all fields correctly",
+                        "error"
+                    )
+                );
+            }
         }
-        e.preventDefault();
     };
 
     const handleChange = (e) => {
@@ -79,9 +94,10 @@ function AuthForm(props) {
     };
 
     return (
-        <div>
+        <div className="auth">
             {props.signup ? (
                 <div className="form">
+                    <h1 className="header">Sign Up</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicName">
                             <Form.Label>Full Name</Form.Label>
@@ -90,6 +106,7 @@ function AuthForm(props) {
                                 placeholder="Enter full name"
                                 name="name"
                                 value={formData.name}
+                                onChange={handleChange}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -99,6 +116,7 @@ function AuthForm(props) {
                                 placeholder="Enter email"
                                 name="email"
                                 value={formData.email}
+                                onChange={handleChange}
                             />
                         </Form.Group>
                         <Form.Group
@@ -111,6 +129,7 @@ function AuthForm(props) {
                                 placeholder="Password"
                                 name="password"
                                 value={formData.password}
+                                onChange={handleChange}
                             />
                         </Form.Group>
                         <Button variant="primary" type="submit">
@@ -120,6 +139,7 @@ function AuthForm(props) {
                 </div>
             ) : (
                 <div className="form">
+                    <h1 className="header">Sign In</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
@@ -127,6 +147,8 @@ function AuthForm(props) {
                                 type="email"
                                 placeholder="Enter email"
                                 name="email"
+                                value={formData.email}
+                                onChange={handleChange}
                             />
                         </Form.Group>
 
@@ -138,6 +160,9 @@ function AuthForm(props) {
                             <Form.Control
                                 type="password"
                                 placeholder="Password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
                             />
                         </Form.Group>
                         <Button id="btn" variant="primary" type="submit">

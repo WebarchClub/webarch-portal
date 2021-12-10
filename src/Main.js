@@ -7,7 +7,7 @@ function Main() {
     return (
         <div className="Main">
             <h1>Main</h1>
-            <AuthForm signup={true} />
+            <AuthForm signup={false} />
             <MessageBox />
         </div>
     );

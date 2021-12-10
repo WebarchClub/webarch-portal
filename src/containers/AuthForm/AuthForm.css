@@ -1,9 +1,27 @@
-form {
-    padding: 100px;
+.auth {
+    margin: 0 auto;
+    height: 92%;
+    background-color: #00e8ff;
 }
 
-@media (max-width: 450px) {
+.header {
+    text-align: center;
+    padding: 40px;
+}
+
+form {
+    width: 30rem;
+    margin: 0 auto;
+}
+
+@media (max-width: 750px) {
     form {
-        padding: 30px;
+        width: 50%;
+    }
+}
+
+@media (max-width: 500px) {
+    form {
+        width: 80%;
     }
 }
