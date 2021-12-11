@@ -1,11 +1,13 @@
 import React, { Fragment } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { FaRegUserCircle } from "react-icons/fa"
-import { FiLogOut } from "react-icons/fi"
+import { useSelector } from "react-redux";
+import { FaRegUserCircle } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 import Logo from "../../assets/logo.png";
 import "./Navbar.css";
 
 function Navigation(props) {
+    const isAuth = useSelector((state) => state.auth.isAuthenticated);
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -22,18 +24,17 @@ function Navigation(props) {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ms-auto fs-5">
-                        {props.currentUser && (
+                        {isAuth && (
                             <Fragment>
                                 <Nav.Link href="#deets" className="mx-2">
                                     profile <FaRegUserCircle />
                                 </Nav.Link>
                                 <Nav.Link href="#deets" className="mx-2">
-                                    Logout{" "}
-                                    <FiLogOut />
+                                    Logout <FiLogOut />
                                 </Nav.Link>
                             </Fragment>
                         )}
-                        {!props.currentUser && (
+                        {!isAuth && (
                             <Fragment>
                                 {" "}
                                 <Nav.Link href="#deets" className="mx-2">
