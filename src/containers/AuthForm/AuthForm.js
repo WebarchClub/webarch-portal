@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import $ from "jquery";
 import "./AuthForm.css";
-import { setAlertMessage, clearAlertMessage } from "../../store/actions/alerts";
+import { setAlertMessage } from "../../store/actions/alerts";
 import { authUser } from "../../store/actions/auth";
 
 function AuthForm(props) {
     const dispatch = useDispatch();
+    let navigate = useNavigate();
 
+    var authDetails;
     if (props.signup === true) {
-        var authDetails = {
+        authDetails = {
             name: "",
             email: "",
             password: ""
         };
     } else {
-        var authDetails = {
+        authDetails = {
             email: "",
             password: ""
         };
@@ -27,42 +30,27 @@ function AuthForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        var emailRegex =
-            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        // eslint-disable-next-line
+        var emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 
         if (props.signup === true) {
-            if (
-                formData.email.match(emailRegex) &&
-                formData.password.length > 3 &&
-                formData.name !== ""
-            ) {
+            if (formData.email.match(emailRegex) && formData.password.length > 3 && formData.name !== "") {
                 dispatch(authUser("signup", formData))
-                    .then((res) => console.log(res))
+                    .then(navigate("/"))
                     .catch((error) => console.log(error));
+            } else if (formData.password.length < 4) {
+                dispatch(setAlertMessage("Password should be minimum of 4 characters", "error"));
+            } else if (formData.name === "") {
+                dispatch(setAlertMessage("Please enter your full name", "error"));
+            } else if (!formData.email.match(emailRegex)) {
+                dispatch(setAlertMessage("Please enter a valid email", "error"));
             } else {
-                dispatch(
-                    setAlertMessage(
-                        "Please enter all fields correctly",
-                        "error"
-                    )
-                );
+                dispatch(setAlertMessage("Please enter all fields correctly", "error"));
             }
         } else {
-            if (
-                formData.email.match(emailRegex) &&
-                formData.password.length > 3
-            ) {
-                dispatch(authUser("signin", formData))
-                    .then((res) => console.log(res))
-                    .catch((error) => console.log(error));
-            } else {
-                dispatch(
-                    setAlertMessage(
-                        "Please enter all fields correctly",
-                        "error"
-                    )
-                );
-            }
+            dispatch(authUser("login", formData))
+                .then(navigate("/"))
+                .catch((error) => console.log(error));
         }
     };
 
@@ -101,36 +89,15 @@ function AuthForm(props) {
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicName">
                             <Form.Label>Full Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter full name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                            />
+                            <Form.Control type="text" placeholder="Enter full name" name="name" value={formData.name} onChange={handleChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="Enter email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
+                            <Form.Control type="email" placeholder="Enter email" name="email" value={formData.email} onChange={handleChange} />
                         </Form.Group>
-                        <Form.Group
-                            className="mb-3"
-                            controlId="formBasicPassword"
-                        >
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder="Password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                            />
+                            <Form.Control type="password" placeholder="Password" name="password" value={formData.password} onChange={handleChange} />
                         </Form.Group>
                         <Button variant="primary" type="submit">
                             Submit
@@ -143,27 +110,12 @@ function AuthForm(props) {
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="Enter email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
+                            <Form.Control type="email" placeholder="Enter email" name="email" value={formData.email} onChange={handleChange} />
                         </Form.Group>
 
-                        <Form.Group
-                            className="mb-3"
-                            controlId="formBasicPassword"
-                        >
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder="Password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                            />
+                            <Form.Control type="password" placeholder="Password" name="password" value={formData.password} onChange={handleChange} />
                         </Form.Group>
                         <Button id="btn" variant="primary" type="submit">
                             Submit

@@ -1,3 +1,4 @@
+import { BrowserRouter as Routes, Route } from "react-router-dom";
 import "./Main.css";
 
 import MessageBox from "./containers/MessageBox/index";
@@ -6,8 +7,10 @@ import AuthForm from "./containers/AuthForm/AuthForm";
 function Main() {
     return (
         <div className="Main">
-            <h1>Main</h1>
-            <AuthForm signup={false} />
+            <Routes>
+                <Route path="/signup" element={<AuthForm signup={true} />} />
+                <Route path="/login" element={<AuthForm signup={false} />} />
+            </Routes>
             <MessageBox />
         </div>
     );
