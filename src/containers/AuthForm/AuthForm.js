@@ -85,7 +85,7 @@ function AuthForm(props) {
         <div className="auth">
             {props.signup ? (
                 <div className="form">
-                    <h1 className="header">Sign Up</h1>
+                    <h1 className="authFormHeader">Sign Up</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicName">
                             <Form.Label>Full Name</Form.Label>
@@ -106,7 +106,7 @@ function AuthForm(props) {
                 </div>
             ) : (
                 <div className="form">
-                    <h1 className="header">Sign In</h1>
+                    <h1 className="authFormHeader">Sign In</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
