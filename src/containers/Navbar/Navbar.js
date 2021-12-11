@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { logout } from "../../store/actions/auth";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
@@ -16,7 +17,7 @@ function Navigation() {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand href="/" className="text-center fs-4">
+                <Navbar.Brand to="/" className="text-center fs-4">
                     <img
                         alt=""
                         src={Logo}
@@ -31,31 +32,42 @@ function Navigation() {
                     <Nav className="ms-auto fs-5">
                         {isAuth && (
                             <Fragment>
-                                <Nav.Link href="/user" className="mx-2">
-                                    profile <FaRegUserCircle />
-                                </Nav.Link>
-                                <Nav.Link
-                                    onClick={logoutHandler}
-                                    href="/"
-                                    className="mx-2"
+                                <Link
+                                    to="/user"
+                                    style={{ textDecoration: "none" }}
                                 >
-                                    Logout <FiLogOut />
-                                </Nav.Link>
+                                    <Nav.Link className="mx-2">
+                                        profile <FaRegUserCircle />
+                                    </Nav.Link>
+                                </Link>
+                                <Link to="/" style={{ textDecoration: "none" }}>
+                                    <Nav.Link
+                                        onClick={logoutHandler}
+                                        className="mx-2"
+                                    >
+                                        Logout <FiLogOut />
+                                    </Nav.Link>
+                                </Link>
                             </Fragment>
                         )}
                         {!isAuth && (
                             <Fragment>
                                 {" "}
-                                <Nav.Link href="/login" className="mx-2">
-                                    Login
-                                </Nav.Link>
-                                <Nav.Link
-                                    eventKey={2}
-                                    href="/signup"
-                                    className="mx-2"
+                                <Link
+                                    to="/login"
+                                    style={{ textDecoration: "none" }}
                                 >
-                                    Signup
-                                </Nav.Link>
+                                    <Nav.Link className="mx-2">Login</Nav.Link>
+                                </Link>
+                                <Link
+                                    to="/signup"
+                                    style={{ textDecoration: "none" }}
+                                >
+                                    {" "}
+                                    <Nav.Link eventKey={2} className="mx-2">
+                                        Signup
+                                    </Nav.Link>
+                                </Link>
                             </Fragment>
                         )}
                     </Nav>
