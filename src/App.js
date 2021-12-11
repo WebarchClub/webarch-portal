@@ -11,7 +11,7 @@ function App() {
         <Router>
             <div className="App">
                 <Provider store={store}>
-                    <Navbar />
+                    <Navbar currentUser={true} />
                     <Main />
                 </Provider>
             </div>
