@@ -1,0 +1,27 @@
+.auth {
+    margin: 0 auto;
+    height: 100%;
+    background-color: #00e8ff;
+}
+
+.authFormHeader {
+    text-align: center;
+    padding: 40px;
+}
+
+.authForm {
+    width: 30rem;
+    margin: 0 auto;
+}
+
+@media (max-width: 750px) {
+    .authForm {
+        width: 50%;
+    }
+}
+
+@media (max-width: 500px) {
+    .authForm {
+        width: 80%;
+    }
+}

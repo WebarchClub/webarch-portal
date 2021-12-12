@@ -27,21 +27,9 @@ const MessageBox = () => {
     return (
         <Modal show={show}>
             <Modal.Header>
-                <Modal.Title
-                    className={
-                        state.alert?.type === "info"
-                            ? "text-info"
-                            : "text-danger"
-                    }
-                >
-                    {state.alert?.type === "error" ? (
-                        <BiError />
-                    ) : (
-                        <AiFillInfoCircle />
-                    )}
-                    <span className="heading">
-                        {state.alert?.type === "info" ? "INFO" : "ERROR"}
-                    </span>
+                <Modal.Title className={state.alert?.type === "info" ? "text-info" : "text-danger"}>
+                    {state.alert?.type === "error" ? <BiError /> : <AiFillInfoCircle />}
+                    <span className="heading">{state.alert?.type === "info" ? "INFO" : "ERROR"}</span>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>{state.alert?.message}</Modal.Body>
