@@ -41,7 +41,10 @@ function Navigation() {
                                 <Nav.Link className="mx-2">
                                     <Link
                                         to="/user"
-                                        style={{ textDecoration: "none", color: "#fff" }}
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#fff"
+                                        }}
                                     >
                                         Profile <FaRegUserCircle />
                                     </Link>
@@ -53,7 +56,10 @@ function Navigation() {
                                 >
                                     <Link
                                         to="/"
-                                        style={{ textDecoration: "none", color: "#fff" }}
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#fff"
+                                        }}
                                     >
                                         Logout <FiLogOut />
                                     </Link>
@@ -65,7 +71,10 @@ function Navigation() {
                                 <Nav.Link className="mx-2">
                                     <Link
                                         to="/login"
-                                        style={{ textDecoration: "none", color: "#fff" }}
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#fff"
+                                        }}
                                     >
                                         Login
                                     </Link>
@@ -73,7 +82,10 @@ function Navigation() {
                                 <Nav.Link eventKey={2} className="mx-2">
                                     <Link
                                         to="/signup"
-                                        style={{ textDecoration: "none", color: "#fff" }}
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#fff"
+                                        }}
                                     >
                                         Signup
                                     </Link>
