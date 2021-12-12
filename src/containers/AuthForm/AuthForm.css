@@ -15,13 +15,13 @@
 }
 
 @media (max-width: 750px) {
-    form {
+    .authForm {
         width: 50%;
     }
 }
 
 @media (max-width: 500px) {
-    form {
+    .authForm {
         width: 80%;
     }
 }
