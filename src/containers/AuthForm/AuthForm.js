@@ -12,21 +12,11 @@ function AuthForm(props) {
     const dispatch = useDispatch();
     let navigate = useNavigate();
 
-    var authDetails;
-    if (props.signup === true) {
-        authDetails = {
-            name: "",
-            email: "",
-            password: ""
-        };
-    } else {
-        authDetails = {
-            email: "",
-            password: ""
-        };
-    }
-
-    const [formData, setFormData] = useState(authDetails);
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: ""
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,7 +27,7 @@ function AuthForm(props) {
             if (formData.email.match(emailRegex) && formData.password.length > 3 && formData.name !== "") {
                 dispatch(authUser("signup", formData))
                     .then(navigate("/"))
-                    .catch((error) => console.log(error));
+                    .catch((error) => dispatch(setAlertMessage(error.message, "error")));
             } else if (formData.password.length < 4) {
                 dispatch(setAlertMessage("Password should be minimum of 4 characters", "error"));
             } else if (formData.name === "") {
@@ -48,9 +38,10 @@ function AuthForm(props) {
                 dispatch(setAlertMessage("Please enter all fields correctly", "error"));
             }
         } else {
-            dispatch(authUser("login", formData))
+            const { name, ...formDataForLogin } = formData;
+            dispatch(authUser("login", formDataForLogin))
                 .then(navigate("/"))
-                .catch((error) => console.log(error));
+                .catch((error) => dispatch(setAlertMessage(error.message, "error")));
         }
     };
 

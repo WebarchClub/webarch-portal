@@ -20,16 +20,8 @@ function Navigation() {
                 <Navbar.Brand className="text-center fs-4">
                     <Link to="/" style={{ textDecoration: "none" }}>
                         <div className="logo d-flex">
-                            <img
-                                alt=""
-                                src={Logo}
-                                width="30"
-                                height="30"
-                                className="d-inline-block"
-                            />
-                            <p className="text-light mb-0 ms-2 mt-1">
-                                Webarch Portal
-                            </p>
+                            <img alt="" src={Logo} width="30" height="30" className="d-inline-block" />
+                            <p className="text-light mb-0 ms-2 mt-1">Webarch Portal</p>
                         </div>
                     </Link>
                 </Navbar.Brand>
@@ -38,57 +30,56 @@ function Navigation() {
                     <Nav className="ms-auto fs-5">
                         {isAuth && (
                             <Fragment>
-                                <Nav.Link className="mx-2">
-                                    <Link
-                                        to="/user"
-                                        style={{
-                                            textDecoration: "none",
-                                            color: "#fff"
-                                        }}
-                                    >
-                                        Profile <FaRegUserCircle />
-                                    </Link>
+                                <Nav.Link
+                                    as={Link}
+                                    to="/user"
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "#fff"
+                                    }}
+                                    className="mx-2"
+                                >
+                                    Profile <FaRegUserCircle />
                                 </Nav.Link>
 
                                 <Nav.Link
+                                    as={Link}
+                                    to="/"
                                     onClick={logoutHandler}
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "#fff"
+                                    }}
                                     className="mx-2"
                                 >
-                                    <Link
-                                        to="/"
-                                        style={{
-                                            textDecoration: "none",
-                                            color: "#fff"
-                                        }}
-                                    >
-                                        Logout <FiLogOut />
-                                    </Link>
+                                    Logout <FiLogOut />
                                 </Nav.Link>
                             </Fragment>
                         )}
                         {!isAuth && (
                             <Fragment>
-                                <Nav.Link className="mx-2">
-                                    <Link
-                                        to="/login"
-                                        style={{
-                                            textDecoration: "none",
-                                            color: "#fff"
-                                        }}
-                                    >
-                                        Login
-                                    </Link>
+                                <Nav.Link
+                                    as={Link}
+                                    to="/login"
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "#fff"
+                                    }}
+                                    className="mx-2"
+                                >
+                                    Login
                                 </Nav.Link>
-                                <Nav.Link eventKey={2} className="mx-2">
-                                    <Link
-                                        to="/signup"
-                                        style={{
-                                            textDecoration: "none",
-                                            color: "#fff"
-                                        }}
-                                    >
-                                        Signup
-                                    </Link>
+                                <Nav.Link
+                                    as={Link}
+                                    to="/signup"
+                                    eventKey={2}
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "#fff"
+                                    }}
+                                    className="mx-2"
+                                >
+                                    Signup
                                 </Nav.Link>
                             </Fragment>
                         )}
