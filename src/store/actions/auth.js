@@ -20,7 +20,7 @@ export const logout = () => (dispatch) => {
 
 // Auth user
 export const authUser = (type, data) => (dispatch) => {
-    // type = signup for Sign up and type = signin for Log in
+    // type = signup for Sign up and type = login for Log in
     const method = "POST";
     const path = `https://webarch-api.herokuapp.com/commons/wp/auth/${type}`;
 
@@ -30,9 +30,7 @@ export const authUser = (type, data) => (dispatch) => {
                 localStorage.setItem("wptoken", res.token);
                 setAuthToken(res.token);
                 dispatch(setCurrentUser(res.user));
-                dispatch(
-                    setAlertMessage("User successfully logged in", "info")
-                );
+                dispatch(setAlertMessage("User successfully logged in", "info"));
                 resolve();
             })
             .catch((error) => {
